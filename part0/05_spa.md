@@ -27,3 +27,5 @@ browser executes the event handler
 that renders notes to display
 end note
 ```
+
+![0.5: Single page app](https://github.com/corteshvictor/fullstackopen/blob/main/part0/05_spa.png)

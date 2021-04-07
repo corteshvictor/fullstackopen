@@ -31,3 +31,5 @@ end note
 browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
 server-->browser: Status Code: 201 content-type: application/json response: {"message":"note created"}
 ```
+
+![0.6: New note](https://github.com/corteshvictor/fullstackopen/blob/main/part0/06_spa_new_note.png)

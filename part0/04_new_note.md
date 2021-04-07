@@ -55,3 +55,5 @@ browser executes the event handler
 that renders notes to display
 end note
 ```
+
+![0.4: new note](https://github.com/corteshvictor/fullstackopen/blob/main/part0/04_new_note.png)
