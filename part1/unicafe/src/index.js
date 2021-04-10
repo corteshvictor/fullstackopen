@@ -1,23 +1,15 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-const Statistics = ({ good, neutral, bad }) => {
-  let total = good + neutral + bad;
-  let average = total ? (good - bad) / total : 0;
-  let positive = total ? (good / total) * 100 : 0;
+const Statistic = ({ text, value }) => (
+  <p>
+    {text} {value} {text === "positive" && "%"}
+  </p>
+);
 
-  return (
-    <>
-      <h1>statistics</h1>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {total}</p>
-      <p>average {average}</p>
-      <p>positive {positive} %</p>
-    </>
-  );
-};
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
 
 const App = () => {
   const [good, setGood] = useState(0);
@@ -28,14 +20,27 @@ const App = () => {
   const handleClickNeutral = () => setNeutral(neutral + 1);
   const handleClickBad = () => setBad(bad + 1);
 
+  let total = good + neutral + bad;
+  let average = total ? (good - bad) / total : 0;
+  let positive = total ? (good / total) * 100 : 0;
+
   return (
     <div className="App">
       <h1>Give feedback</h1>
-      <button onClick={handleClickGood}>good</button>
-      <button onClick={handleClickNeutral}>neutral</button>
-      <button onClick={handleClickBad}>bad</button>
-      {good || neutral || bad ? (
-        <Statistics good={good} neutral={neutral} bad={bad} />
+      <Button handleClick={handleClickGood} text={"good"} />
+      <Button handleClick={handleClickNeutral} text={"neutral"} />
+      <Button handleClick={handleClickBad} text={"bad"} />
+
+      <h1>statistics</h1>
+      {total ? (
+        <>
+          <Statistic text="good" value={good} />
+          <Statistic text="neutral" value={neutral} />
+          <Statistic text="bad" value={bad} />
+          <Statistic text="all" value={total} />
+          <Statistic text="average" value={average} />
+          <Statistic text="positive" value={positive} />
+        </>
       ) : (
         <p>No feedback given</p>
       )}
