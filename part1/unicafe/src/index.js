@@ -10,6 +10,9 @@ const App = () => {
   const handleClickGood = () => setGood(good + 1);
   const handleClickNeutral = () => setNeutral(neutral + 1);
   const handleClickBad = () => setBad(bad + 1);
+  let total = good + neutral + bad;
+  let average = total ? (good - bad) / total : 0;
+  let positive = total ? (good / total) * 100 : 0;
 
   return (
     <div className="App">
@@ -21,6 +24,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all {total}</p>
+      <p>average {average}</p>
+      <p>positive {positive} %</p>
     </div>
   );
 };
