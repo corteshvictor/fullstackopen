@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 const Statistic = ({ text, value }) => (
-  <p>
-    {text} {value} {text === "positive" && "%"}
-  </p>
+  <tr>
+    <td> {text}</td>
+    <td>
+      {value} {text === "positive" && "%"}
+    </td>
+  </tr>
 );
 
 const Button = ({ handleClick, text }) => (
@@ -16,9 +19,22 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const handleClickGood = () => setGood(good + 1);
-  const handleClickNeutral = () => setNeutral(neutral + 1);
-  const handleClickBad = () => setBad(bad + 1);
+  const handleClick = (event) => {
+    const text = event.target.innerText;
+
+    switch (text) {
+      case "neutral":
+        setNeutral(neutral + 1);
+        break;
+      case "bad":
+        setBad(bad + 1);
+        break;
+
+      default:
+        setGood(good + 1);
+        break;
+    }
+  };
 
   let total = good + neutral + bad;
   let average = total ? (good - bad) / total : 0;
@@ -27,20 +43,22 @@ const App = () => {
   return (
     <div className="App">
       <h1>Give feedback</h1>
-      <Button handleClick={handleClickGood} text={"good"} />
-      <Button handleClick={handleClickNeutral} text={"neutral"} />
-      <Button handleClick={handleClickBad} text={"bad"} />
+      <Button handleClick={handleClick} text={"good"} />
+      <Button handleClick={handleClick} text={"neutral"} />
+      <Button handleClick={handleClick} text={"bad"} />
 
       <h1>statistics</h1>
       {total ? (
-        <>
-          <Statistic text="good" value={good} />
-          <Statistic text="neutral" value={neutral} />
-          <Statistic text="bad" value={bad} />
-          <Statistic text="all" value={total} />
-          <Statistic text="average" value={average} />
-          <Statistic text="positive" value={positive} />
-        </>
+        <table>
+          <tbody>
+            <Statistic text="good" value={good} />
+            <Statistic text="neutral" value={neutral} />
+            <Statistic text="bad" value={bad} />
+            <Statistic text="all" value={total} />
+            <Statistic text="average" value={average} />
+            <Statistic text="positive" value={positive} />
+          </tbody>
+        </table>
       ) : (
         <p>No feedback given</p>
       )}
