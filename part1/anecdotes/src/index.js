@@ -17,7 +17,10 @@ const App = ({ anecdotes }) => {
   };
 
   const max = Math.max(...vote);
-  const maxVote = (element) => element === max;
+  let positionsMostVotes = [];
+  for (let i = 0; i <= vote.length; i++) {
+    if (vote[i] === max) positionsMostVotes.push(i);
+  }
 
   return (
     <div className="App">
@@ -28,9 +31,19 @@ const App = ({ anecdotes }) => {
         <button onClick={handleClickVote}>vote</button>
         <button onClick={handleClickNextAnecdotes}>Next anecdotes</button>
       </p>
-      <h1>Anecdote whith most votes</h1>
-      <p>{anecdotes[vote.findIndex(maxVote)]}</p>
-      <p>has {max} votes</p>
+      <h1>Anecdote(s) whith most votes</h1>
+      {max ? (
+        positionsMostVotes.map((moreVote) => {
+          return (
+            <div key={moreVote}>
+              <p>{anecdotes[moreVote]}</p>
+              <p>has {max} votes</p>
+            </div>
+          );
+        })
+      ) : (
+        <p>All anecdotes have 0 votes.</p>
+      )}
     </div>
   );
 };
