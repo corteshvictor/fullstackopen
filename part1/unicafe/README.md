@@ -71,7 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 # English
 
-## Exercises 1.6.-1.14.
+## Exercises 1.6.-1.11.
 
 ### 1.6: unicafe step1
 
@@ -181,7 +181,7 @@ Display the statistics in an HTML table, so that your application looks roughly 
 
 # Español
 
-### Ejercicios 1.6.-1.14.
+## Ejercicios 1.6.-1.11.
 
 ### 1.6: unicafe, paso 1
 
