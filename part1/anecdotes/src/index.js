@@ -3,32 +3,31 @@ import ReactDOM from "react-dom";
 
 const App = ({ anecdotes }) => {
   const [selected, setSelected] = useState(0);
-  const [vote, setVote] = useState(Array(anecdotes.length).fill(0));
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
 
   const handleClickNextAnecdotes = () => {
     const randomNumber = Math.floor(Math.random() * anecdotes.length);
     setSelected(randomNumber);
   };
 
-  const handleClickVote = () => {
-    const copyVote = [...vote];
+  const handleClickVotes = () => {
+    const copyVote = [...votes];
     copyVote[selected] += 1;
-    setVote(copyVote);
+    setVotes(copyVote);
   };
 
-  const max = Math.max(...vote);
+  const max = Math.max(...votes);
   let positionsMostVotes = [];
-  for (let i = 0; i <= vote.length; i++) {
-    if (vote[i] === max) positionsMostVotes.push(i);
-  }
+  for (const [index, vote] of votes.entries())
+    vote === max && positionsMostVotes.push(index);
 
   return (
     <div className="App">
       <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
-      <p>has {vote[selected]} votes</p>
+      <p>has {votes[selected]} votes</p>
       <p>
-        <button onClick={handleClickVote}>vote</button>
+        <button onClick={handleClickVotes}>vote</button>
         <button onClick={handleClickNextAnecdotes}>Next anecdotes</button>
       </p>
       <h1>Anecdote(s) whith most votes</h1>
