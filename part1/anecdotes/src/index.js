@@ -16,14 +16,21 @@ const App = ({ anecdotes }) => {
     setVote(copyVote);
   };
 
+  const max = Math.max(...vote);
+  const maxVote = (element) => element === max;
+
   return (
     <div className="App">
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {vote[selected]} votes</p>
       <p>
         <button onClick={handleClickVote}>vote</button>
         <button onClick={handleClickNextAnecdotes}>Next anecdotes</button>
       </p>
+      <h1>Anecdote whith most votes</h1>
+      <p>{anecdotes[vote.findIndex(maxVote)]}</p>
+      <p>has {max} votes</p>
     </div>
   );
 };
