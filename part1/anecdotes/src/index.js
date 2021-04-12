@@ -33,14 +33,12 @@ const App = ({ anecdotes }) => {
       </p>
       <h1>Anecdote(s) whith most votes</h1>
       {max ? (
-        positionsMostVotes.map((moreVote) => {
-          return (
-            <div key={moreVote}>
-              <p>{anecdotes[moreVote]}</p>
-              <p>has {max} votes</p>
-            </div>
-          );
-        })
+        positionsMostVotes.map((moreVote) => (
+          <div key={moreVote}>
+            <p>{anecdotes[moreVote]}</p>
+            <p>has {max} votes</p>
+          </div>
+        ))
       ) : (
         <p>All anecdotes have 0 votes.</p>
       )}
