@@ -1,5 +1,13 @@
 import { useState } from "react";
 
+const startCase = (value) =>
+  typeof value === "string"
+    ? value
+        .trim()
+        .toLowerCase()
+        .replace(/\b\w/g, (string) => string.toUpperCase())
+    : "";
+
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
@@ -8,7 +16,11 @@ const App = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setPersons([...persons, { name: newName }]);
+    const formatName = startCase(newName);
+    const nameExist = persons.some(({ name }) => name === formatName);
+    if (nameExist) return alert(`${formatName} is already added to phonebook}`);
+
+    setPersons([...persons, { name: formatName }]);
     setNewName("");
   };
 
