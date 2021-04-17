@@ -1,5 +1,12 @@
 import { useState } from "react";
 
+const PHONEBOOK = [
+  { name: "Arto Hellas", number: "040-123456" },
+  { name: "Ada Lovelace", number: "39-44-5323523" },
+  { name: "Dan Abramov", number: "12-43-234345" },
+  { name: "Mary Poppendieck", number: "39-23-6423122" },
+];
+
 const startCase = (value) =>
   typeof value === "string"
     ? value
@@ -9,14 +16,14 @@ const startCase = (value) =>
     : "";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "555-1111" },
-  ]);
+  const [persons, setPersons] = useState(PHONEBOOK);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [search, setSearch] = useState("");
 
-  const handleChangeName = (event) => setNewName(event.target.value);
-  const handleChangeNumber = (event) => setNewNumber(event.target.value);
+  const handleSetName = (event) => setNewName(event.target.value);
+  const handleSetNumber = (event) => setNewNumber(event.target.value);
+  const handleSetSearch = (event) => setSearch(event.target.value);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,17 +34,27 @@ const App = () => {
 
     setPersons([...persons, { name: formatName, number: newNumber }]);
     setNewName("");
+    setNewNumber("");
   };
+
+  const filterPersons = (value = "") =>
+    persons.filter(({ name }) =>
+      name.toLowerCase().includes(value.toLowerCase())
+    );
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <p>
+        filter shown with <input onChange={handleSetSearch} />
+      </p>
+      <h2>add a new</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          name: <input value={newName} onChange={handleChangeName} />
+          name: <input value={newName} onChange={handleSetName} />
         </div>
         <div>
-          number: <input value={newNumber} onChange={handleChangeNumber} />
+          number: <input value={newNumber} onChange={handleSetNumber} />
         </div>
         <div>
           <button type="submit" disabled={!newName}>
@@ -46,7 +63,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(({ name, number }) => (
+      {filterPersons(search).map(({ name, number }) => (
         <p key={name}>
           {name} {number}
         </p>
