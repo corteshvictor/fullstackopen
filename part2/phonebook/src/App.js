@@ -1,19 +1,10 @@
 import { useState } from "react";
 
-const PHONEBOOK = [
-  { name: "Arto Hellas", number: "040-123456" },
-  { name: "Ada Lovelace", number: "39-44-5323523" },
-  { name: "Dan Abramov", number: "12-43-234345" },
-  { name: "Mary Poppendieck", number: "39-23-6423122" },
-];
-
-const startCase = (value) =>
-  typeof value === "string"
-    ? value
-        .trim()
-        .toLowerCase()
-        .replace(/\b\w/g, (string) => string.toUpperCase())
-    : "";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Persons";
+import { startCase } from "./utils";
+import { PHONEBOOK } from "./constants";
+import Filter from "./components/Filter";
 
 const App = () => {
   const [persons, setPersons] = useState(PHONEBOOK);
@@ -45,29 +36,17 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <p>
-        filter shown with <input onChange={handleSetSearch} />
-      </p>
-      <h2>add a new</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          name: <input value={newName} onChange={handleSetName} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleSetNumber} />
-        </div>
-        <div>
-          <button type="submit" disabled={!newName}>
-            add
-          </button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      {filterPersons(search).map(({ name, number }) => (
-        <p key={name}>
-          {name} {number}
-        </p>
-      ))}
+      <Filter handleChange={handleSetSearch} />
+      <h3>add a new</h3>
+      <PersonForm
+        handleSetName={handleSetName}
+        handleSetNumber={handleSetNumber}
+        name={newName}
+        number={newNumber}
+        handleSubmit={handleSubmit}
+      />
+      <h3>Numbers</h3>
+      <Persons persons={filterPersons(search)} />
     </div>
   );
 };
