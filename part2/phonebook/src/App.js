@@ -12,9 +12,14 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
 
-  const handleSetName = (event) => setNewName(event.target.value);
-  const handleSetNumber = (event) => setNewNumber(event.target.value);
-  const handleSetSearch = (event) => setSearch(event.target.value);
+  // const handleSetName = (event) => setNewName(event.target.value);
+  // const handleSetNumber = (event) => setNewNumber(event.target.value);
+  // const handleSetSearch = (event) => setSearch(event.target.value);
+
+  // Utilizando composición de funciones
+  // función para crear diferentes funciones de "setter" para actualizar el estado
+  // Set state using function composition
+  const setInput = (setter) => (event) => setter(event.target.value);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,11 +41,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter handleChange={handleSetSearch} />
+      <Filter handleChange={setInput(setSearch)} />
       <h3>add a new</h3>
       <PersonForm
-        handleSetName={handleSetName}
-        handleSetNumber={handleSetNumber}
+        handleSetName={setInput(setNewName)}
+        handleSetNumber={setInput(setNewNumber)}
         name={newName}
         number={newNumber}
         handleSubmit={handleSubmit}
