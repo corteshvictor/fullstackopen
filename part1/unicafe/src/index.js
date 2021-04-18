@@ -19,6 +19,7 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  /* Una sola funcion utilizando el evento para tomar el texto y actualizar el estado
   const handleClick = (event) => {
     const text = event.target.innerText;
 
@@ -35,6 +36,7 @@ const App = () => {
         break;
     }
   };
+  */
 
   let total = good + neutral + bad;
   let average = total ? (good - bad) / total : 0;
@@ -43,9 +45,9 @@ const App = () => {
   return (
     <div className="App">
       <h1>Give feedback</h1>
-      <Button handleClick={handleClick} text={"good"} />
-      <Button handleClick={handleClick} text={"neutral"} />
-      <Button handleClick={handleClick} text={"bad"} />
+      <Button handleClick={() => setGood(good + 1)} text="good" />
+      <Button handleClick={() => setNeutral(neutral + 1)} text="neutral" />
+      <Button handleClick={() => setBad(bad + 1)} text="bad" />
 
       <h1>statistics</h1>
       {total ? (
